@@ -5,8 +5,8 @@ require('../includes/pdo.php');
 
 /** Cette fonction permet de vérifier les identifiants de l'utilisateur. 
  * 
- * @param mail Le nom temporaire du fichier (nom du fichier à l'envoie)
- * @param mdp Le nom du groupe auqel appartient le fichier.
+ * @param mail Le mail de l'infirmier
+ * @param mdp Le mot de passe de son compte
  * @param erreur Un booléen qui passe à True en cas d'erreur.
  * @param messages Un tableau associatif de messages d'erreur. 
  * 
@@ -67,6 +67,23 @@ function verifLogs($mail,$mdp,&$erreur,&$messages){
 
 }
 
+/** Cette fonction permet de vérifier les données d'enregistrements pour un compte infirmier. 
+ * 
+ * @param mail Le mail de l'infirmier
+ * @param mdp Le mot de passe de son compte
+ * @param erreur Un booléen qui passe à True en cas d'erreur.
+ * @param messages Un tableau associatif de messages d'erreur. 
+ * 
+ * Si le champ du mail est vide, la variable erreur passe à True.
+ * Si le champ du mot de passe est vide, la variable erreur passe à True.
+ * 
+ * Sinon, on vérifie la correspondance avec la base de données.
+ *  Si aucune ligne n'est retournée par la requête de vérification du mail, la variable erreur passe à True.
+ *  Si le mot de passe n'est pas vérifié, la variable erreur passe à True.
+ *  
+ * En cas d'erreur, on ajoute un message d'erreur personnalisé.
+ * @return Void la fonction ne retourne rien.
+ */
 
 function verifRegister($mail,$mdp,$nom,$verif,&$erreur,&$messages){
       if (empty($nom)){
@@ -97,6 +114,7 @@ function verifRegister($mail,$mdp,$nom,$verif,&$erreur,&$messages){
           $erreur = True;
           $messages["mdp"] = '<br> Votre code de vérification est incorrect.';
       }
+      // On utilisera un code simpliste "123456" pour cet exemple qui servira à attester le statut d'infirmier.
       if ($verif != "123456"){
           $erreur = True;
           $messages['verif'] = '<br> Votre code de vérification est incorrect.';
@@ -119,13 +137,59 @@ function verifRegister($mail,$mdp,$nom,$verif,&$erreur,&$messages){
 }
 
 
+/** Cette fonction permet de vérifier les données d'enregistrements pour un compte infirmier. 
+ * 
+ * @param nom Le mail de l'infirmier
+ * @param prenom Le mot de passe de son compte
+ * @param dateNais La date de naissance du patient.
+ * @param age L'âge du patient
+ * @param sexe Le sexe du patient
+ * @param mail Le mail du patient.
+ * @param tel Le numéro de téléphone du patient.
+ * @param ville La ville du patient.
+ * @param cp Le code postal du patient.
+ * @param adresse L'adresse postale du patient.
+ * @param jour Le jour auquel le patient souhaite prendre rendez-vous.
+ * @param horaire L'horaire à laquelle le patient veut prendre rendez-vous.
+ * @param erreur Un booléen qui passe à True en cas d'erreur.
+ * @param messages Un tableau associatif de messages d'erreur. 
+ * 
+ * Si le champ du nom est vide, la variable erreur passe à True.
+ * Si le champ du prenom est vide, la variable erreur passe à True.
+ * Si le champ de la date de naissance est vide, la variable erreur passe à True.
+ * Si le champ de l'âge est vide, la variable erreur passe à True.
+ * Si le champ du sexe est vide, la variable erreur passe à True.
+ * Si le champ du mail est vide, la variable erreur passe à True.
+ * Si le champ du nom est vide, la variable erreur passe à True.
+ * Si le champ du nom est vide, la variable erreur passe à True.
+ * 
+ * 
+ * 
+ * Sinon, on vérifie la correspondance avec la base de données.
+ *  Si aucune ligne n'est retournée par la requête de vérification du mail, la variable erreur passe à True.
+ *  Si le mot de passe n'est pas vérifié, la variable erreur passe à True.
+ *  
+ * En cas d'erreur, on ajoute un message d'erreur personnalisé.
+ * @return Void la fonction ne retourne rien.
+ */
 
 
-
-function verifPatient($nom,$prenom,$dateNais,$age,$sexe,$mail,$tel,$ville,$cp,&$erreur,&$messages){
+function verifPatient($nom,$prenom,$dateNais,$age,$sexe,$mail,$tel,$ville,$cp,$adresse,$jour,$horaire,&$messages,&$erreur){
+    $db = Flight::get('db');
+    $req = $db -> prepare("SELECT * FROM patients WHERE horaire=:horaire AND jour=:jour");
+    $req -> bindParam(':horaire',$horaire);
+    $req -> bindParam(':jour',$jour);
+    $req -> execute();
+    if ($req -> rowCount()>0){
+        $erreur = True;
+        $messages['horaire'] = "<br> Cette horaire est déjà prise.";
+    }
+    if ((date("Y") - (intval(substr($dateNais,0,4)))) > 105  ){
+        echo "nique kim";
+    }
     if (empty($nom)){
         $erreur = True;
-        $messages["nom"] = '<br>Vous devez saisir un Nom.';
+        $messages['nom'] = '<br>Vous devez saisir un Nom.';
     }
 
     if (empty($prenom)){
@@ -136,16 +200,6 @@ function verifPatient($nom,$prenom,$dateNais,$age,$sexe,$mail,$tel,$ville,$cp,&$
     if (empty($dateNais)){
         $erreur = True;
         $messages['dateNais'] ='<br>Vous devez saisir une date de naissance.';
-    }
-
-    $dateNais = date_parse($donnees['dateNais']);
-    $jour = $date['day'];
-    $mois = $date['month'];
-    $annee = $date['year'];
-
-    if (intval($annee) < 1905){
-        $erreur = True;
-        $messages['dateNais'] = '<br>Date de naissance incorrecte, veuillez saisir une date de naissance VALIDE.';
     }
 
 
@@ -161,16 +215,6 @@ function verifPatient($nom,$prenom,$dateNais,$age,$sexe,$mail,$tel,$ville,$cp,&$
     if ((intval($age) < 0) and (intval($age)>105)){
         $erreur = True;
         $messages['age'] = '<br>Âge incorrect, veuillez saisir un âge VALIDE.';
-    }
-
-    if (empty($sexe)){
-        $erreur = True;
-        $messages['sexe'] = '<br>Vous devez saisir un sexe.';
-    }
-
-    if (is_numeric($sexe)){
-        $erreur = True;
-        $messages['sexe'] = '<br>Sexe incorrect, veuillez saisir un sexe VALIDE.';
     }
 
     if (empty($mail)){
@@ -205,7 +249,7 @@ function verifPatient($nom,$prenom,$dateNais,$age,$sexe,$mail,$tel,$ville,$cp,&$
         $messages['ville'] = "<br>Veuillez saisir une ville.";
       }
 
-      if (is_numeric($villeRep)){
+      if (is_numeric($ville)){
         $erreur = True;
         $messages['ville'] = "<br>Ville incorrecte, veuillez saisir une ville VALIDE.";
         $_POST['ville']="";
@@ -226,18 +270,46 @@ function verifPatient($nom,$prenom,$dateNais,$age,$sexe,$mail,$tel,$ville,$cp,&$
     if(!preg_match("~^[0-9]{5}$~",$cp)){
         $erreur = True;
         $messages['cp'] = "<br>Code Postal incorrect, veuillez saisir un code postal VALIDE.";
+        $_POST['cp']="";
     }
 
     if (empty($adresse)){
         $erreur = True;
         $messages['adresse'] = "<br>Veuillez saisir une adresse postale.";
+        $_POST['adresse']="";
     }
 
     if (is_numeric($adresse)){
         $erreur = True;
         $messages['adresse'] = "<br>Adresse incorrecte, veuillez saisir une adresse postale VALIDE";
+        $_POST['adresse']="";
     }
 
+    if ($jour == "Vendredi"){
+        if (
+               ($horaire =="08:00")
+            or ($horaire =="08:15")
+            or ($horaire =="08:30")
+            or ($horaire =="08:45")
+            or ($horaire =="09:00")
+            or ($horaire =="09:15")
+            or ($horaire =="09:30")
+            or ($horaire =="09:45")
+            or ($horaire =="10:00")
+            or ($horaire =="10:15")
+            or ($horaire =="10:30")
+            or ($horaire =="10:45")
+            or ($horaire =="11:00")
+            or ($horaire =="11:15")
+            or ($horaire =="11:30")
+            or ($horaire =="11:45")
+        )
+        {
+            $erreur = True;
+            $messages['horaire'] = '<br> Le vendredi, les rendez-vous commence à 14:00';
+        }
+
+    }
 
 
 }

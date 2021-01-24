@@ -23,7 +23,9 @@ if(isset($_SESSION['user'])){
     Flight::view() -> assign('userType',$_SESSION['userType']);
     Flight::view() -> assign('mail',$_SESSION['mail']);
     Flight::view() -> assign('id',$_SESSION['id']);
+    
 }
+
 
 Flight::start();
 
