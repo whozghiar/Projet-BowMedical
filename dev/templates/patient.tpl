@@ -15,49 +15,50 @@
         <div>
             <div>
                 <form action="patient" method = "POST">
-                    <label> Nom : </label> <input type = "text" name = "nom" required>
+                    <label> Nom : </label> <input type = "text" name = "nom" value ="{$nom|default:''}" placeholder="Doe" required>
                     <div> {$messages.nom|default:''} </div>
                     <br>
-                    <label> Prenom : </label> <input type = "text" name = "prenom" required>
+                    <label> Prenom : </label> <input type = "text" name = "prenom" value ="{$prenom|default:''}" placeholder="John"  required>
                     <div> {$messages.prenom|default:''} </div>
                     <br>
-                    <label> Date de naissance : </label> <input type = "date" data-date="" data-date-format="dd/mm/yyyy" name = "dateNais" placeholder = "02/08/2001" required>
+                    <label> Date de naissance : </label> <input type = "date" data-date="" data-date-format="dd/mm/yyyy" name = "dateNais" value ="{$dateNais|default:''}" placeholder="Doe"   required>
                     <div> {$messages.dateNais|default:''} </div>
                     <br>
-                    <label> Âge : </label><input type = "number" min = "0" max = "105"  name = "age" required>
+                    <label> Âge : </label><input type = "number" min = "0" max = "105"  name = "age" value ="{$age|default:''}" placeholder="18"  required>
                     <div> {$messages.age|default:''} </div>
                     <br>
-                    <label> Sexe : </label><select required type = "text" name = "sexe">
+                    <label> Sexe : </label><select required type = "text" name = "sexe" value ="{$sexe|default:''}">
                                                 <option> Homme
                                                 <option> Femme
                                                 <option selected> Autre
                                             </select>
                     <div> {$messages.sexe|default:''} </div>
                     <br>
-                    <label> Mail : </label><input type = "mail" name = "mail" required>
+                    <label> Mail : </label><input type = "mail" name = "mail" value ="{$mail|default:''}" placeholder="johndoe@hotmail.com"  required>
                     <div> {$messages.mail|default:''} </div>
                     <br>
-                    <label> Téléphone : </label><input type ="number" min = "0" name = "tel" required>
+                    <label> Téléphone : </label><input type ="number" min = "0" name = "tel" value ="{$tel|default:''}" placeholder="0634472514"  required>
                     <div> {$messages.tel|default:''} </div>
                     <br>
-                    <label> Ville : </label><input type = "text" name = "ville" required>
+                    <label> Ville : </label><input type = "text" name = "ville" value ="{$ville|default:''}" placeholder="Amiens"  required>
                     <div> {$messages.ville|default:''} </div>
                     <br>
-                    <label> Code Postal : </label><input type = "number" min="0" name = "cp" required>
+                    <label> Code Postal : </label><input type = "number" min="0" name = "cp" value ="{$cp|default:''}" placeholder="80000"  required>
                     <div> {$messages.cp|default:''} </div>
                     <br>
-                    <label> Adresse : </label><input type = "text" name = "adresse" required>
+                    <label> Adresse : </label><input type = "text" name = "adresse" value ="{$adresse|default:''}" placeholder="19 rue de l'eau"  required>
                     <div> {$messages.adresse|default:''} </div>
                     <br>
-                    <label> Jour du rendez-vous : </label> <select required type = "text" name = "jour">
+                    <label> Jour du rendez-vous : </label> <select required type = "text" name = "jour" value ="{$jour|default:''}">
                                                                 {foreach $jours item= jour}
                                                                     <option selected> {$jour}
                                                                 {/foreach}
                                                             </select>
                     <br>
-                    <label> Heure du rendez-vous : </label> <select required name = "horaire">
+                    <label> Heure du rendez-vous : (Si vous avez choisi vendredi, choisissez un horaire inférieur à 12h </label>
+                                                             <select required name = "horaire">
                                                                 {foreach $horaire item=time}
-                                                                    <option selected> {$time}
+                                                                    <option> {$time}
                                                                 {/foreach}
                                                              </select>
                     <div> {$messages.horaire|default:''} </div>
@@ -65,7 +66,7 @@
                 </form>
             </div>
         </div>
-      
+        <a href="./"> Retour à l'accueil. </a>
                             
                                   
     </body>

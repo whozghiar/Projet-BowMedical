@@ -2,7 +2,10 @@
 require('../includes/pdo.php');
 require('fonctions.php');
 
-
+/*
+    Cette route permet de confirmer l'inscription d'un infirmier.
+    Elle rend une page issue d'un template ok.tpl avec un tableau $data contenant un titre de page.
+*/
 Flight::route('GET /ok', function(){
     $data=array(
       "titre" => "Inscription infirmier"
@@ -10,6 +13,11 @@ Flight::route('GET /ok', function(){
     Flight::render('ok.tpl',$data);
   });
 
+/*
+    Cette route permet de confirmer la prise de rendez-vous d'un patient.
+    Elle rend une page issue d'un template okpatient.tpl avec un tableau $data contenant un titre de page.
+
+*/
   Flight::route('GET /okpatient', function(){
     $data=array(
       "titre" => "Rendez-vous Patient"
@@ -17,7 +25,17 @@ Flight::route('GET /ok', function(){
     Flight::render('okpatient.tpl',$data);
   });
 
-
+/*
+  Cette route donne accès au planning de l'infirmier. Les plage horaires disponibles ne contiennent pas d'information
+  tandis que les plages horaires indisponibles sont affichées avec une série d'information concernant le patient associé à cet horaire.
+  Pour obtenir ces informations, on effectue une requête.
+  On parcourt chaque jour de visite et on émet une requête SQL dans laquelle on sélectionne les champs auxquels l'infirmier souhaite avoir accès.
+  On enregistre cette requête dans un tableau.
+  Ce tableau sera parcouru dans le fichier template grâce à des fonctionnalités smarty.
+  
+  Cette route sera rendue par FLIGHT en lui associant un tableau de données $data qui contient les horaires, les jours,
+  le tableau et le titre de la page
+*/
   Flight::route('GET /planning', function(){
     {
 
@@ -67,7 +85,6 @@ Flight::route('GET /ok', function(){
             $tab[]=$res;
         }
         $data=array(
-            "car" => "",
             "res" => $tab,
             "titre" => "planning",
             "jours" => $jours,
@@ -89,11 +106,27 @@ Flight::route('GET /',function(){
 
 });
 
+/*
+    Cette route fait le rendu d'une page inscription sur laquelle un infirmier peut s'inscrire en envoyant des données.
+*/
 Flight::route('GET /inscription', function(){
     $data = array();
     Flight::render('inscription.tpl',$data);
 });
 
+/*
+    Cette route permet de soumettre les données envoyées par l'utilisateur.
+    Elle possède une variable $erreur qui passe à True en cas d'erreur.
+    Elle possède un tableau $messages qui contient les éventuels messages d'erreur.
+    Les données soumises sont stockées dans des variables attitrées qui seront vérifiées.
+    Cette vérification s'effectue grâce à la fonction "verifRegister()". 
+
+    En cas d'erreur, on raffiche le formulaire avec les messages d'erreurs nécessaires.
+    Sinon, on insère dans notre base de données les nouvelles informations de l'infirmier (mail,mot de passe chiffré et nom)
+
+    PS : Un code simpliste, est prédéfini "123456" afin d'attester le statut d'infirmier.
+
+*/
 Flight::route('POST /inscription',function(){
     $erreur = False;
     $messages = array();
@@ -150,6 +183,10 @@ Flight::route('GET /connexion', function(){
   Cette route permet de soumettre les données du formulaire de connexion.
   On va déclarer une variable $erreur qui passera à True en cas d'erreur(s).
   Un variable messages sera un tableau affichant les éventuels messages d'erreurs.
+  On appelle la fonction "verifLogs()" qui permet d'effectuer une vérification des informations envoyées par l'utilisateur.
+
+  S'il n'y a pas d'erreur, on redirige vers la page d'accueil.
+  En cas d'erreur on raffiche le formulaire avec les messages d'erreurs.
 */
 Flight::route ('POST /connexion', function(){
     $erreur = False;
@@ -313,7 +350,6 @@ Flight::route('POST /patient', function(){
             "16:30",
             "16:45"
         );
-        
         Flight::view()->assign('horaire',$horaire);
         Flight::view()->assign('jours',$jours);
         Flight::view()->assign('messages',$messages);

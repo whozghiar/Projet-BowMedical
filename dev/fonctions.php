@@ -175,6 +175,9 @@ function verifRegister($mail,$mdp,$nom,$verif,&$erreur,&$messages){
 
 
 function verifPatient($nom,$prenom,$dateNais,$age,$sexe,$mail,$tel,$ville,$cp,$adresse,$jour,$horaire,&$messages,&$erreur){
+    /*
+        Cette requête SQL permet de vérifier si une horaire est déjà prise afin d'éviter le surbooking.
+    */
     $db = Flight::get('db');
     $req = $db -> prepare("SELECT * FROM patients WHERE horaire=:horaire AND jour=:jour");
     $req -> bindParam(':horaire',$horaire);
@@ -184,8 +187,34 @@ function verifPatient($nom,$prenom,$dateNais,$age,$sexe,$mail,$tel,$ville,$cp,$a
         $erreur = True;
         $messages['horaire'] = "<br> Cette horaire est déjà prise.";
     }
+    /*
+        Si le rendez-vous est pris un vendredi, si l'horaire est pris après 14h, une erreur résulte. 
+    */
+    if ($jour == "Vendredi"){
+        if (
+               ($horaire =="14:00")
+            or ($horaire =="14:15")
+            or ($horaire =="14:30")
+            or ($horaire =="14:45")
+            or ($horaire =="15:00")
+            or ($horaire =="15:15")
+            or ($horaire =="15:30")
+            or ($horaire =="15:45")
+            or ($horaire =="16:00")
+            or ($horaire =="16:15")
+            or ($horaire =="16:30")
+            or ($horaire =="16:45")
+        )
+        {
+            $erreur = True;
+            $messages['horaire'] = '<br> Le vendredi, les rendez-vous se terminent à 12:00';
+        }
+
+    }
+
     if ((date("Y") - (intval(substr($dateNais,0,4)))) > 105  ){
-        echo "nique kim";
+        $erreur = True;
+        $messages['dateNais'] = '<br>Date de naissance invalide.';
     }
     if (empty($nom)){
         $erreur = True;
@@ -285,31 +314,7 @@ function verifPatient($nom,$prenom,$dateNais,$age,$sexe,$mail,$tel,$ville,$cp,$a
         $_POST['adresse']="";
     }
 
-    if ($jour == "Vendredi"){
-        if (
-               ($horaire =="08:00")
-            or ($horaire =="08:15")
-            or ($horaire =="08:30")
-            or ($horaire =="08:45")
-            or ($horaire =="09:00")
-            or ($horaire =="09:15")
-            or ($horaire =="09:30")
-            or ($horaire =="09:45")
-            or ($horaire =="10:00")
-            or ($horaire =="10:15")
-            or ($horaire =="10:30")
-            or ($horaire =="10:45")
-            or ($horaire =="11:00")
-            or ($horaire =="11:15")
-            or ($horaire =="11:30")
-            or ($horaire =="11:45")
-        )
-        {
-            $erreur = True;
-            $messages['horaire'] = '<br> Le vendredi, les rendez-vous commence à 14:00';
-        }
 
-    }
 
 
 }

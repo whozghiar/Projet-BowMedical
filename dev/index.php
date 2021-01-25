@@ -15,7 +15,8 @@ Flight::register('view', 'Smarty', array(), function($smarty){
     Flight::view()->assign($data);
     Flight::view()->display($template);
    }); 
-   
+
+
 Flight::set("db",$db);
 
 if(isset($_SESSION['user'])){

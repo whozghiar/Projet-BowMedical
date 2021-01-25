@@ -5,6 +5,6 @@
     </head>
     <body>
         <h1> Vous venez de prendre rendez-vous.</h1>
-        <a href = "/dev"> Accéder à la page d'accueil. </a>
+        <a href = "./"> Accéder à la page d'accueil. </a>
     </body>
 </html>
