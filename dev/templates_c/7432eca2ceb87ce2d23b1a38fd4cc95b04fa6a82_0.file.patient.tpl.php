@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2021-01-25 06:36:24
+/* Smarty version 3.1.34-dev-7, created on 2021-01-25 10:02:18
   from 'C:\public_html5\dev\templates\patient.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_600e66e867f134_44989827',
+  'unifunc' => 'content_600e972a9f2bd2_27289444',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7432eca2ceb87ce2d23b1a38fd4cc95b04fa6a82' => 
     array (
       0 => 'C:\\public_html5\\dev\\templates\\patient.tpl',
-      1 => 1611556582,
+      1 => 1611568919,
       2 => 'file',
     ),
   ),
@@ -20,13 +20,13 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_600e66e867f134_44989827 (Smarty_Internal_Template $_smarty_tpl) {
+function content_600e972a9f2bd2_27289444 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!doctype html>
 <html>
     <head>
-            <link href="css/accueil.css" type="text/css" rel="stylesheet" >
             <link href="css/patient.css" type="text/css" rel="stylesheet" >
             <title>TEST</title>
+
     </head>
     <body>
         <div>
@@ -92,7 +92,7 @@ function content_600e66e867f134_44989827 (Smarty_Internal_Template $_smarty_tpl)
                     <div> <?php echo (($tmp = @$_smarty_tpl->tpl_vars['messages']->value['adresse'])===null||$tmp==='' ? '' : $tmp);?>
  </div>
                     <br>
-                    <label> Jour du rendez-vous : </label> <select required type = "text" name = "jour" value ="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['jour']->value)===null||$tmp==='' ? '' : $tmp);?>
+                    <label> Jour du rendez-vous : </label> <select class = "day" required type = "text" name = "jour" value ="<?php echo (($tmp = @$_smarty_tpl->tpl_vars['jour']->value)===null||$tmp==='' ? '' : $tmp);?>
 ">
                                                                 <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['jours']->value, 'jour');
@@ -108,7 +108,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                                             </select>
                     <br>
                     <label> Heure du rendez-vous : (Si vous avez choisi vendredi, choisissez un horaire inférieur à 12h </label>
-                                                             <select required name = "horaire">
+                                                             <select id="select-box1" required name = "horaire">
                                                                 <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['horaire']->value, 'time');
 $_smarty_tpl->tpl_vars['time']->do_else = true;

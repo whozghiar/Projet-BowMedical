@@ -1,9 +1,9 @@
 <!doctype html>
 <html>
     <head>
-            <link href="css/accueil.css" type="text/css" rel="stylesheet" >
             <link href="css/patient.css" type="text/css" rel="stylesheet" >
             <title>TEST</title>
+
     </head>
     <body>
         <div>
@@ -49,14 +49,14 @@
                     <label> Adresse : </label><input type = "text" name = "adresse" value ="{$adresse|default:''}" placeholder="19 rue de l'eau"  required>
                     <div> {$messages.adresse|default:''} </div>
                     <br>
-                    <label> Jour du rendez-vous : </label> <select required type = "text" name = "jour" value ="{$jour|default:''}">
+                    <label> Jour du rendez-vous : </label> <select class = "day" required type = "text" name = "jour" value ="{$jour|default:''}">
                                                                 {foreach $jours item= jour}
                                                                     <option selected> {$jour}
                                                                 {/foreach}
                                                             </select>
                     <br>
                     <label> Heure du rendez-vous : (Si vous avez choisi vendredi, choisissez un horaire inférieur à 12h </label>
-                                                             <select required name = "horaire">
+                                                             <select id="select-box1" required name = "horaire">
                                                                 {foreach $horaire item=time}
                                                                     <option> {$time}
                                                                 {/foreach}

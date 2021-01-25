@@ -1,20 +1,16 @@
 <!doctype html>
 <html>
     <head>
-            <link href="/accueil.css" type="text/css" rel="stylesheet" >
             <link href="css/inscription.css" type="text/css" rel="stylesheet" >
             <meta name= "viewport" content="width=device-width, initial-scale=1">
             <title>Inscription Infirmier</title>
     </head>
     <body>
-        <div>
-            <div>
-                <h1> Inscription </h1>
-            </div>
-        </div>
+        <h1> Inscription </h1>
 
-        <div>
-            <div>
+
+        <div id="login-box">
+            <div class = "left">
                 <form action="inscription" method = "POST">
                     <label> Nom : </label> <input type = "text" name = "nom" placeholder = "Doe" value = "{$nom|default:''}">
                     <div> {$messages.nom|default:''} </div>
@@ -30,4 +26,6 @@
 
                     <p> <input type ="submit" value = "S'inscrire"> </p> 
                 </form>
+            </div>
+        </div>
     </body>

@@ -7,10 +7,10 @@
     <body>
         <div>
             <h1> Voici votre planning : </h1>
-            <a href = "/dev"> Accéder à la page d'accueil. </a>
+            <a href = "./"> Accéder à la page d'accueil. </a>
         </div>
         <br>
-        <table>
+        <table class = "responstable">
                 {* On parcourt les jours Lundi,Mardi,Jeudi,Vendredi. *}
                 {foreach $jours item= jour}
                      <tr> <th class = "jour"> {$jour} </th> <tr>
@@ -27,13 +27,13 @@
                                 *}
                                 {if $j[2]==$jour}
                                     {if $j[1]==$time}
-                                        <td class ="patient"> {$j[0]} </td>
-                                        <td> {$j[3]} </td>
-                                        <td> {$j[4]} </td>
-                                        <td> {$j[5]} </td>
-                                        <td> {$j[6]} </td>
-                                        <td> {$j[7]} </td>
-                                        <td> {$j[8]} </td>
+                                        <td class ="patient">Prénom : {$j[0]} </td>
+                                        <td class ="patient">Nom : {$j[3]} </td>
+                                        <td class ="patient">Date de naissance : {$j[4]} </td>
+                                        <td class ="patient">Âge : {$j[5]} </td>
+                                        <td class ="patient">Sexe : {$j[6]} </td>
+                                        <td class ="patient">Tél : {$j[7]} </td>
+                                        <td class ="patient">Adresse : {$j[8]} </td>
                                     {/if}
                                 
                                 {/if}

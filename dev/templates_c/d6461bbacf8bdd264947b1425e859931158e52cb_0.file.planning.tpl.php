@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2021-01-25 06:32:21
+/* Smarty version 3.1.34-dev-7, created on 2021-01-25 09:33:51
   from 'C:\public_html5\dev\templates\planning.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_600e65f5879a93_30344962',
+  'unifunc' => 'content_600e907fe53433_86529490',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd6461bbacf8bdd264947b1425e859931158e52cb' => 
     array (
       0 => 'C:\\public_html5\\dev\\templates\\planning.tpl',
-      1 => 1611553147,
+      1 => 1611567198,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_600e65f5879a93_30344962 (Smarty_Internal_Template $_smarty_tpl) {
+function content_600e907fe53433_86529490 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html>
     <head>
@@ -34,7 +34,7 @@ function content_600e65f5879a93_30344962 (Smarty_Internal_Template $_smarty_tpl)
             <a href = "/dev"> Accéder à la page d'accueil. </a>
         </div>
         <br>
-        <table>
+        <table class = "responstable">
                                 <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['jours']->value, 'jour');
 $_smarty_tpl->tpl_vars['jour']->do_else = true;

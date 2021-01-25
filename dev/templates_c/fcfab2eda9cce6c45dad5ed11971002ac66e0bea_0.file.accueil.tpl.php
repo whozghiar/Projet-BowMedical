@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2021-01-24 12:09:48
+/* Smarty version 3.1.34-dev-7, created on 2021-01-25 09:43:10
   from 'C:\public_html5\dev\templates\accueil.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_600d638c46fd95_26667538',
+  'unifunc' => 'content_600e92ae0ab0a3_33936435',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fcfab2eda9cce6c45dad5ed11971002ac66e0bea' => 
     array (
       0 => 'C:\\public_html5\\dev\\templates\\accueil.tpl',
-      1 => 1611426667,
+      1 => 1611567636,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_600d638c46fd95_26667538 (Smarty_Internal_Template $_smarty_tpl) {
+function content_600e92ae0ab0a3_33936435 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!doctype html>
 <html>
     <head>
@@ -57,6 +57,7 @@ function content_600d638c46fd95_26667538 (Smarty_Internal_Template $_smarty_tpl)
             <p> <a href = "patient" class="btns"> Prenez rendez-vous </a></p>
             <?php }?>
     </div>
+    
 </body>
 </html> <?php }
 }
