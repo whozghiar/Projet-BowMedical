@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2021-01-24 20:58:08
+/* Smarty version 3.1.34-dev-7, created on 2021-01-25 05:48:05
   from 'C:\public_html5\dev\templates\patient.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_600ddf601467e4_79559938',
+  'unifunc' => 'content_600e5b9500db69_93086116',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7432eca2ceb87ce2d23b1a38fd4cc95b04fa6a82' => 
     array (
       0 => 'C:\\public_html5\\dev\\templates\\patient.tpl',
-      1 => 1611521886,
+      1 => 1611553679,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_600ddf601467e4_79559938 (Smarty_Internal_Template $_smarty_tpl) {
+function content_600e5b9500db69_93086116 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!doctype html>
 <html>
     <head>
@@ -111,7 +111,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                                              </select>
                     <div> <?php echo (($tmp = @$_smarty_tpl->tpl_vars['messages']->value['horaire'])===null||$tmp==='' ? '' : $tmp);?>
  </div>
-                    <p> <input type ="submit" value = "S'inscrire"> </p> 
+                    <p> <input type ="submit" value = "Prendre rendez-vous."> </p> 
                 </form>
             </div>
         </div>

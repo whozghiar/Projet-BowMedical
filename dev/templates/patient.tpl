@@ -61,7 +61,7 @@
                                                                 {/foreach}
                                                              </select>
                     <div> {$messages.horaire|default:''} </div>
-                    <p> <input type ="submit" value = "S'inscrire"> </p> 
+                    <p> <input type ="submit" value = "Prendre rendez-vous."> </p> 
                 </form>
             </div>
         </div>
